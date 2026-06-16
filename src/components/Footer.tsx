@@ -1,4 +1,4 @@
-import { Facebook, Instagram, Search } from 'lucide-react';
+import { Facebook, Instagram, Search, Github } from 'lucide-react';
 
 interface FooterProps {
   scrollToSection: (id: string) => void;
@@ -33,14 +33,19 @@ export default function Footer({ scrollToSection, setFilteredCategory, onNavigat
           {/* Right: Circular Social Media Accounts */}
           <div className="flex items-center gap-4">
             {[
-              { icon: <Instagram size={14} />, name: 'Instagram' },
-              { icon: <Facebook size={14} />, name: 'Facebook' },
-              { icon: <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.627 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387-.1-.986-.19-2.502.04-3.58.206-.922 1.332-5.64 1.332-5.64s-.34-.68-.34-1.68c0-1.574.913-2.75 2.048-2.75.966 0 1.432.725 1.432 1.595 0 .972-.618 2.425-.938 3.772-.267 1.127.566 2.046 1.677 2.046 2.013 0 3.56-2.123 3.56-5.186 0-2.712-1.95-4.608-4.732-4.608-3.223 0-5.115 2.417-5.115 4.914 0 .973.375 2.017.844 2.586.092.112.106.21.078.322-.086.357-.277 1.13-.314 1.285-.05.203-.163.246-.376.147-1.402-.653-2.278-2.704-2.278-4.35 0-3.539 2.571-6.79 7.412-6.79 3.89 0 6.913 2.772 6.913 6.476 0 3.864-2.437 6.974-5.82 6.974-1.136 0-2.203-.59-2.569-1.29l-.697 2.653c-.252.973-.933 2.193-1.39 2.943 1.123.347 2.313.535 3.545.535 6.627 0 12-5.373 12-12 0-6.627-5.373-12-12-12z"/></svg>, name: 'Pinterest' }
+              { icon: <Instagram size={14} />, name: 'Instagram', url: '#' },
+              { icon: <Facebook size={14} />, name: 'Facebook', url: '#' },
+              { icon: <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.627 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387-.1-.986-.19-2.502.04-3.58.206-.922 1.332-5.64 1.332-5.64s-.34-.68-.34-1.68c0-1.574.913-2.75 2.048-2.75.966 0 1.432.725 1.432 1.595 0 .972-.618 2.425-.938 3.772-.267 1.127.566 2.046 1.677 2.046 2.013 0 3.56-2.123 3.56-5.186 0-2.712-1.95-4.608-4.732-4.608-3.223 0-5.115 2.417-5.115 4.914 0 .973.375 2.017.844 2.586.092.112.106.21.078.322-.086.357-.277 1.13-.314 1.285-.05.203-.163.246-.376.147-1.402-.653-2.278-2.704-2.278-4.35 0-3.539 2.571-6.79 7.412-6.79 3.89 0 6.913 2.772 6.913 6.476 0 3.864-2.437 6.974-5.82 6.974-1.136 0-2.203-.59-2.569-1.29l-.697 2.653c-.252.973-.933 2.193-1.39 2.943 1.123.347 2.313.535 3.545.535 6.627 0 12-5.373 12-12 0-6.627-5.373-12-12-12z"/></svg>, name: 'Pinterest', url: '#' },
+              { icon: <Github size={14} />, name: 'GitHub', url: 'https://github.com/Osamaalsofy/Jewelry-2' }
             ].map((soc) => (
               <a
                 key={soc.name}
-                href="#"
-                onClick={(e) => e.preventDefault()}
+                href={soc.url}
+                target={soc.url !== '#' ? "_blank" : undefined}
+                rel={soc.url !== '#' ? "noopener noreferrer" : undefined}
+                onClick={(e) => {
+                  if (soc.url === '#') e.preventDefault();
+                }}
                 className="w-8 h-8 rounded-full border border-charcoal/10 hover:border-gold hover:bg-charcoal hover:text-alabaster flex items-center justify-center transition-all cursor-pointer"
                 title={soc.name}
               >
