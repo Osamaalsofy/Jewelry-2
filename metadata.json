@@ -1,0 +1,8 @@
+{
+  "name": "Jewelry-2",
+  "description": "An ultra-premium luxury jewelry website inspired by high-fashion editorials, luxury magazines, and modern luxury brands.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

@@ -1,0 +1,65 @@
+# Celestique | Premium GitHub Pages Auto-Deployment Pipeline
+# Automatically builds and deploys the cinematic jewelry showcase to GitHub Pages.
+
+name: Celestique Deployment Pipeline
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+
+# Request permissions for safe native GitHub Pages deployment
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Prevent duplicate queuing by canceling obsolete pending runs
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js Environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install Project Dependencies
+        run: |
+          if [ -f package-lock.json ]; then
+            npm ci
+          else
+            npm install
+          fi
+
+      - name: Verify Code Integrity (Lint & Type-Check)
+        run: npm run lint
+
+      - name: Compile and Bundle Production Assets
+        run: npm run build
+
+      - name: Initialize Pages Metadata
+        uses: actions/configure-pages@v5
+
+      - name: Upload Static Assets to GitHub Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './dist'
+
+      - name: Execute Live Deployment
+        id: deployment
+        uses: actions/deploy-pages@v4
